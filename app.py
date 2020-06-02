@@ -42,7 +42,10 @@ def get_user_url(short):
     print(destination)
 
     try:
-        return redirect(f'https://www.{destination.long_url}/')
+        if 'www.' in destination.long_url:
+             return redirect(f'https://{destination.long_url}/')
+        else:
+            return redirect(f'https://www.{destination.long_url}/')
     except:
         return 'There was a problem opening link that task'
 
