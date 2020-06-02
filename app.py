@@ -47,28 +47,28 @@ def delete(id):
     except:
         return 'There was a problem deleting that task'
 
-# @app.route('/update/<int:id>', methods=['GET', 'POST'])
-# def update(id):
-#     task = Todo.query.get_or_404(id)
-#     if request.method == 'POST':
-#         task.content = request.form['content']
+@app.route('/update/<int:id>', methods=['GET', 'POST'])
+def update(id):
+    url_to_update = YourUrl.query.get_or_404(id)
+    if request.method == 'POST':
+        url_to_update.short_url = request.form['short_url']
         
-#         try:
-#             db.session.commit()
-#             return redirect('/')
-#         except:
-#             return 'There was an issue updating your task'
+        try:
+            db.session.commit()
+            return redirect('/')
+        except:
+            return 'There was an issue updating your task'
             
-#     else:
-#         return render_template('update.html', task=task)
+    else:
+        return render_template('update.html', url_link=url_to_update)
 
 
-#     try:
-#         db.session.put(task_to_update)
-#         db.session.commit()
-#         return redirect('/')
-#     except:
-#         return 'There was a problem deleting that task'
+    try:
+        db.session.put(url_to_update)
+        db.session.commit()
+        return redirect('/')
+    except:
+        return 'There was a problem deleting that task'
 
 
 if __name__ == "__main__":
