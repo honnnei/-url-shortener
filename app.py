@@ -10,7 +10,7 @@ db = SQLAlchemy(app)
 class YourUrl(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     long_url = db.Column(db.String(200), nullable=False)
-    short_url = db.Column(db.String(200), nullable=False)
+    short_url = db.Column(db.String(200), unique=True, nullable=False)
     date_created = db.Column(db.DateTime, default=datetime.utcnow)
 
     # def __repr__(self):
@@ -22,8 +22,6 @@ def index():
         link_long_url = request.form['long_url']
         link_short_url = request.form['short_url']
         new_url = YourUrl(long_url=link_long_url, short_url=link_short_url)
-        print(link_long_url, link_short_url)
-        print(new_url)
         try:
             db.session.add(new_url)
             db.session.commit()
@@ -35,6 +33,28 @@ def index():
         return render_template('index.html', all_the_urls=all_urls)
 
         # all_urls=all_urls
+@app.route('/link/<short>', methods=['GET']) 
+def get_user_url(short):
+    print(short)
+    destination = YourUrl.query.filter_by(short_url=short).first()
+    print(destination.long_url)
+    # url_destination = YourUrl.query.get_or_404(short_url)
+    print(destination)
+
+    try:
+        return redirect(f'https://www.{destination.long_url}/')
+    except:
+        return 'There was a problem opening link that task'
+
+
+# @app.route('/link/', methods=['GET']) 
+# def get_user_url():
+#     # url_destination = YourUrl.query.get_or_404(short_link)
+#     # print(url_destination.long_url)
+#     try:
+#         return redirect('https://www.facebook.com/')
+#     except:
+#         return 'there was an issue'
 
 @app.route('/delete/<int:id>')
 def delete(id):
