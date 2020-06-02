@@ -6,5 +6,38 @@
 </head>
 <body>
     <h1>this is index</h1>
+    <div class="content">
+        <form action="/" method="POST">
+            <label>Long url:</label>
+            <input type="text" name="long_url" id="long_url">
+            <label>Short url:</label>
+            <input type="text" name="short_url" id="short_url">
+            <input type="submit" value="Add Task">
+        </form>    
+    </div>
+
+    {% if all_the_urls|length < 1 %}
+    <h1>There are no urls create one below:</1>
+    {% else %}
+    <table>
+        <tr>
+            <th>URL</th>
+            <th>URL long</th>
+            <th>URL short</th>
+        </tr>
+        {% for url_link in all_the_urls %}
+        <tr>
+            <td>{{ url_link.long_url }}</td>
+            <td>{{ url_link.short_url  }}</td>
+            <td>
+                <a href="/delete/{{url_link.id}}">Delete</a>
+                <br />
+                <a href="/update/{{url_link.id}}">Update</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
 </body>
 </html>
