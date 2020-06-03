@@ -1,47 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
-    <Title>URL.ly</Title>
-</head>
-<body>
-    <h1>this is index</h1>
-    <div class="content">
+{% extends 'base.html'%}
+{% block body %}
+        <h1>URL.ly</h1>
+        <h3>Create a link shortener:</h3>
         <form action="/" method="POST">
             <label>Long url:</label>
             <input type="text" name="long_url" id="long_url">
             <label>Short url:</label>
             <input type="text" name="short_url" id="short_url">
-            <input type="submit" value="Add Task">
+            <input type="submit" value="Create URL">
         </form>    
-    </div>
+    
 
-    {% if all_the_urls|length < 1 %}
-    <h1>There are no urls create one below:</1>
-    {% else %}
-    <table>
-        <tr>
-            <th>URL short link</th>
-            <th>Full URL</th>
-            <th>User Options</th>
-        </tr>
-        {% for url_link in all_the_urls %}
-        <tr>
-            <td>
-                <a href="/link/{{url_link.short_url}}">{{ url_link.short_url  }}</a>
-            </td>
-            <td>{{ url_link.long_url }}</td>
-            <td class="user-options">
-                <a href="/delete/{{url_link.id}}">Delete</a>
-                <br />
-                <a href="/update/{{url_link.id}}">Update</a>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
-    {% endif %}
-
-</body>
-</html>
+        {% if all_the_urls|length < 1 %}
+        <h1>There are no urls create one below:</1>
+        {% else %}
+        <table>
+            <tr>
+                <th>URL short link</th>
+                <th>Full URL</th>
+                <th>User Options</th>
+            </tr>
+            {% for url_link in all_the_urls %}
+            <tr>
+                <td>
+                    <a href="/link/{{url_link.short_url}}">localhost:5000/link/{{ url_link.short_url  }}</a>
+                </td>
+                <td>{{ url_link.long_url }}</td>
+                <td class="user-options">
+                    <a href="/delete/{{url_link.id}}">Delete</a>
+                    <br />
+                    <a href="/update/{{url_link.id}}">Update</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+{% endblock%}

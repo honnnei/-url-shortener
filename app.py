@@ -25,8 +25,7 @@ def index():
         try:
             db.session.add(new_url)
             db.session.commit()
-            # return redirect('/')
-            return "this was posted"
+            return redirect('/')
         except:
             return 'There was an issue adding your task'
     else:

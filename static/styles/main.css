@@ -1,5 +1,6 @@
 body {
-    margin: 0;
+    height: 100vh;
+    margin: 20px;
     font-family: sans-serif;
     color: black;
     display: flex;
@@ -10,23 +11,29 @@ body {
 
 table {
     color: green;
+    width: 500px;
+    border: 1px solid black;
+}
+
+th {
+
+}
+
+td {
+
 }
 
 h1 {
     color: red;
 }
 
-.content {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
 form {
     display: flex;
-    justify-content: center;
     align-items: center;
-    flex-direction: column;
+    height: 60px;
 }
+
+.user-options {
+    padding: 5px;
+}
+
