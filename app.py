@@ -21,11 +21,12 @@ def index():
     if request.method == 'POST':
         link_long_url = request.form['long_url']
         link_short_url = request.form['short_url']
-        new_url = YourUrl(long_url=link_long_url, short_url=link_short_url)
+        new_url = YourUrl(long_url = link_long_url, short_url = link_short_url)
         try:
             db.session.add(new_url)
             db.session.commit()
-            return redirect('/')
+            # return redirect('/')
+            return "this was posted"
         except:
             return 'There was an issue adding your task'
     else:
@@ -35,12 +36,8 @@ def index():
         # all_urls=all_urls
 @app.route('/link/<short>', methods=['GET']) 
 def get_user_url(short):
-    print(short)
     destination = YourUrl.query.filter_by(short_url=short).first()
-    print(destination.long_url)
     # url_destination = YourUrl.query.get_or_404(short_url)
-    print(destination)
-
     try:
         if 'www.' in destination.long_url:
              return redirect(f'https://{destination.long_url}/')

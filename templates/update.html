@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <Title>Hi</Title>
+    <link href="{{ url_for('static', filename='main.css') }}" type="text/css" rel="stylesheet">
+    <Title>URL.ly</Title>
 </head>
 <body>
     <div class="content">
@@ -12,7 +13,6 @@
         <form action="/update/{{url_link.id}}" method="POST">
             <input type="text" name="short_url" id="short_url" value="{{url_link.short_url}}">
             <input type="submit" value="Update">
-
         </form>
     </div>
 </body>
